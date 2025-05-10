@@ -9,5 +9,14 @@ urlpatterns = [
     re_path(r'app2/list/(?P<year>\d{4})/', views.article_list, name='app2_article_list'),
     re_path(r'app2/page/(?P<page>\d+)&key=(?P<key>\w+)/', views.article_page, name='app2_article_page'),
     path('app2/url_reverse/', views.url_reverse, name='app2_url_reverse'),
+    path('app2/hello/', views.hello, name='app2_hello'),
+    path('app2/test_get/', views.test_get, name='app2_test_get'),
+    path('app2/test_post/', views.test_post, name='app2_test_post'),
+    path('app2/test_response/', views.test_response, name='app2_test_response'),
+    path('app2/test_render/', views.test_render, name='app2_test_render'),
+    path('app2/test_redirect_model/<int:id>/', views.test_redirect_model, name='app2_test_redirect_model'),
+    path('app2/userinfo/<int:id>/', views.userinfo, name='app2_userinfo'),
+    path('app2/test_redirect_views/<int:id>/', views.test_redirect_views, name='app2_test_redirect_views'),
+    path('app2/test_redirect/', views.test_redirect, name='app2_test_redirect'),
 
 ]
