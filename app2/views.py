@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.urls import reverse
+from django.views import View
 
 from app2.models import UserBaseInfo
 
@@ -79,3 +80,21 @@ def test_redirect_views(request,id):
 
 def test_redirect(request):
     return redirect('https://www.baidu.com/')  # 重定向到指定的URL
+
+def index_page(request):
+    '''
+    视图函数
+    '''
+    if request.method ==  'GET':
+        return HttpResponse('这是GET方法')
+    elif request.method == 'POST':
+        return HttpResponse('这是POST方法')
+    
+class IndexPageView(View):
+    '''
+    视图类
+    '''
+    def get(self,request):
+        return HttpResponse('这是GET方法')
+    def post(self,request):
+        return HttpResponse('这是POST方法')

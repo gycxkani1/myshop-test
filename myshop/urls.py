@@ -22,4 +22,5 @@ urlpatterns = [
     # path('index/', views.index, name='app1/index'),
     path('', include('app1.urls')), # app1/urls.py
     path('', include('app2.urls')), # app2/urls.py
+    path('', include('app3.urls')),
 ]

@@ -1,5 +1,6 @@
 from django.urls import path,re_path
 from . import views
+from app2.views_class import *
 
 urlpatterns = [
     path('app2/index/', views.index, name='app2_index'),
@@ -18,5 +19,10 @@ urlpatterns = [
     path('app2/userinfo/<int:id>/', views.userinfo, name='app2_userinfo'),
     path('app2/test_redirect_views/<int:id>/', views.test_redirect_views, name='app2_test_redirect_views'),
     path('app2/test_redirect/', views.test_redirect, name='app2_test_redirect'),
+    path('app2/index_page_fun/', views.index_page, name='app2_index_page_fun'),
+    path('app2/index_page_class/', views.IndexPageView.as_view(), name='app2_index_page_class'),
+    path('app2/TestTemplateView/', TestTemplateView.as_view(), name='app2_TestTemplateView'),
+    path('app2/test_listview/', TestListView.as_view(), name='app2_TestListView'),
+    path('app2/test_detailview/<int:userid>', TestDetailView.as_view(), name='app2_TestDetailView'),
 
 ]
