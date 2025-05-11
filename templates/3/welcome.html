@@ -1,0 +1,16 @@
+{% extends "3/base.html" %}<!-- 继承母版页base.html -->
+{% block title %}<!-- 重写title块 -->
+<title>欢迎页面</title>
+{% endblock %}
+{% block menu %}<!--  重写menu块 -->
+<table>
+  <tr><td style="text-align:center;width:15%">菜单项一</td></tr>
+  <tr><td style="text-align:center;width:15%">菜单项二</td></tr>
+  <tr><td style="text-align:center;width:15%">菜单项三</td></tr>
+  <tr><td style="text-align:center;width:15%">菜单项四</td></tr>
+  <tr><td style="text-align:center;width:15%">菜单项五</td></tr>
+</table>
+{% endblock %}
+{% block content %}<!-- 重写content块 -->
+<div style="text-align:center">欢迎来到我的特色小店</div>
+{% endblock %}

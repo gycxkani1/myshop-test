@@ -14,13 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
-# from app1 import views
+from django.urls import path,include,re_path
+
+from django.views.static import serve
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('index/', views.index, name='app1/index'),
+
+    # re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
+    # re_path('static/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),
+
     path('', include('app1.urls')), # app1/urls.py
     path('', include('app2.urls')), # app2/urls.py
     path('', include('app3.urls')),
 ]
+
+if not settings.DEBUG:
+    # urlpatterns += [path('^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    # path('^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT})]
+
+    urlpatterns += [re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
+re_path('static/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),]
+

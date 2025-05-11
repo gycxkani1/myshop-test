@@ -44,3 +44,12 @@ def diy_tags(request):
 
 def show_info(request):
     return render(request, '3/show_info.html')
+
+def welcome(request):
+    return render(request, '3/welcome.html')
+
+def welcome2(request):
+    return render(request, '3/welcome2.html')
+
+def test_static(request):
+   return render(request,'3/static_file.html')
