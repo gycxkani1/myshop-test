@@ -1,0 +1,7 @@
+{% load mytags %}<!--加载自定义标签-->>
+<table  border="1" style="width:300px">
+  {% for list in lists %}
+  <!-- 调用自定义标签函数 -->>
+  <tr><td>{% show_title list.标题 10 %}</td></tr>
+  {% endfor %}
+</table>

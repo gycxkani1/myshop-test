@@ -27,3 +27,20 @@ def html_filter(request):
     html_addr = "<table border='1'><tr><td>这是一个表格</td></tr></table>"
     html_script = "<script language='javascript'>document.write('非法执行');</script>"
     return render(request, '3/html_filter.html', {'html_addr':html_addr, 'html_script':html_script})
+
+def diy_filter(request):
+    dict1 = {'标题':'学习python的好方法就是每天不间断的写代码'}
+    dict2 = {'标题':'学习django的好方法就是上手做个项目比如CMS、OA等'}
+    dict3 = {'标题':'学习新知识的好方法就是快速构建一棵知识树'}
+    lists = [dict1, dict2, dict3]
+    return render(request, '3/diy_filter.html', {'lists':lists})
+
+def diy_tags(request):
+    dict1 = {'标题':'学习python的好方法就是每天不间断的写代码'}
+    dict2 = {'标题':'学习django的好方法就是上手做个项目比如CMS、OA等'}
+    dict3 = {'标题':'学习新知识的好方法就是快速构建一棵知识树'}
+    lists = [dict1, dict2, dict3]
+    return render(request, '3/diy_tags.html', {'lists':lists})
+
+def show_info(request):
+    return render(request, '3/show_info.html')
