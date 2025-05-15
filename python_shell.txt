@@ -1,0 +1,27 @@
+users=UserBaseInfo.objects.all()
+for user in users:
+    print(user.username)
+
+users=UserBaseInfo.objects.values('id','username','phone')
+for user in users:
+    print(user)
+    print(type(user))
+
+ d=dict(username='张三',password='123456',status='1',createdate=timezone.now())
+user=UserBaseInfo.objects.create(**d)
+
+user=UserBaseInfo.objects.create(username='刘六六',password='123456',status='1',createdate=timezone.now())
+
+one_user=UserBaseInfo.objects.get(id=1)
+one_user.username='张三三'
+one_user.save()
+
+one_user=UserBaseInfo.objects.filter(id=2).update(username='李四四')
+
+users=UserBaseInfo.objects.update(status='0')
+
+d=dict(username='赵四',truename='赵小刚',sex=0,salary=6555.88,age=35,department='技术部',status='0',createdate=timezone.now(),memo='',depart=depart,user=one_user)
+extrainfo=UserExtraInfo.objects.create(**d)
+
+user=UserBaseInfo.objects.get(id=1)
+user.cardinfo_set.all()

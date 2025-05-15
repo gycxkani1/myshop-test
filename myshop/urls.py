@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('app1.urls')), # app1/urls.py
     path('', include('app2.urls')), # app2/urls.py
     path('', include('app3.urls')),
+    path('app4/', include('app4.urls')),
 ]
 
 if not settings.DEBUG:

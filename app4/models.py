@@ -58,7 +58,7 @@ class CardInfo(models.Model):
     id = models.AutoField(verbose_name='编号',primary_key=True)
     cardno = models.CharField(verbose_name='卡号',max_length=30)
     bank = models.CharField(verbose_name='所属银行',max_length=30)
-    user = models.ForeignKey(UserBaseInfo,on_delete=models.CASCADE)
+    user = models.ForeignKey(UserBaseInfo,related_name="usercard",on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
