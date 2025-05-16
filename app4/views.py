@@ -163,6 +163,7 @@ from django.db.models import Q
 def q_func(request):
     user=UserExtraInfo.objects.filter(Q(age__gt=30) & Q(salary__gt=5000))
     user
+    return HttpResponse(user)
 
 import json
 def raw(request):

@@ -12,5 +12,7 @@ urlpatterns = [
     path('qs_distinct/', views.qs_distinct, name='qs_distinct'),
     path('qs_values/', views.qs_values, name='qs_values'),
 
+     path('q_func/', views.q_func, name='q_func'),
+
     path('userinfo_trans/', views.userinfo_trans, name='userinfo_trans'),
 ]
