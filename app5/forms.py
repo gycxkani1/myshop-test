@@ -2,7 +2,7 @@ from django import forms
 import re
 from django.core.exceptions import ValidationError
 
-from app5.models import ImgFile
+from app5.models import *
 
 def age_validate(value):
     if value < 1 or value > 120:
@@ -55,11 +55,6 @@ class UserInfoForm(forms.Form):
         required=False,
         widget=forms.widgets.DateTimeInput(attrs={'class':'form-control','placeholder':'请输入创建日期'})
         )
-
-
-    # class Meta:
-    #     model = UserInfo
-    #     fields = '__all__'
 
 
 class UserInfo_Msg_Form(forms.Form):
@@ -148,6 +143,100 @@ class ImgFileForm(forms.Form):
         widget=forms.widgets.FileInput(attrs={'class':'form-control'}),
         error_messages={'required':'文件不能为空'}
         )
+
+class UserBaseInfoModelForm(forms.ModelForm):
+
+    confirm_password = forms.CharField(
+        label='确认密码', widget=forms.PasswordInput(attrs={"class": "password"}, render_value=True),
+        error_messages={
+            'required': '密码不能为空',
+        })
+
     class Meta:
-        model = ImgFile
-        fields = '__all__'
+         # 定义关联模型
+        model = UserBaseInfo
+        # 定义需要在表单中展示的字段。
+        fields = ['username', 'password', 'confirm_password', 'age', 'mobile', 'status']
+        # 如果要显示全部字段，可以如下设置
+        # fields="__all__"
+         # 如果Models中定义了名称，这里不用再定义
+        labels = {
+            "age": "最佳年龄",
+            "mobile": "手机信息",
+        }
+        widgets = {
+            # 文本框渲染为密码输入框
+            "password": forms.widgets.PasswordInput(attrs={"class": "password"}, render_value=True)
+        }
+        error_messages = {
+            "username": {
+                'required': '用户姓名不能为空',
+                'min_length': '长度最少6位',
+                'invalid': '输入正确的用户姓名'
+            },
+            "password": {
+                'max_length': '密码最长10位',
+                'required': '密码不能为空',
+                'min_length': '密码最少6位'
+            },
+            "age": {
+                'required': '年龄不能为空',
+            },
+            "mobile": {
+                'required': '手机号码不能为空',
+            },
+            "status": {
+                'required': '用户状态不能为空',
+            }
+        }
+    # 校验手机号码的局部钩子函数
+    def clean_mobile(self):
+        mobile = self.cleaned_data.get('mobile')
+        print(mobile)
+        mobile_re = re.compile(r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$')
+        if not mobile_re.match(mobile):
+            raise ValidationError('手机号码格式错误')
+        return mobile
+    
+    # 校验年龄的局部钩子函数
+    def clean_age(self):
+        age = self.cleaned_data.get('age')
+        print(age)
+        if age < 1 or age > 120:
+            raise ValidationError('年龄只能在1-120之间')
+        return age
+    
+    # 校验用户名的局部钩子函数
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        print(username)
+        if len(username) < 6 or len(username) > 30:
+            raise ValidationError('用户名的长度只能在6-30之间')
+        return username
+    
+    # 校验密码的局部钩子函数
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        print(password)
+        if len(password) < 6 or len(password) > 20:
+            raise ValidationError('密码的长度只能在6-20之间')
+        return password
+    
+     # 校验确认密码的局部钩子函数
+    def clean_confirm_password(self):
+        # password =  self.cleaned_data.get("password")
+        confirm_password = self.cleaned_data.get('confirm_password')
+        print(confirm_password)
+        if len(confirm_password) < 6 or len(confirm_password) > 20:
+            raise ValidationError('确认密码的长度只能在6-20之间')
+        # if password != confirm_password:
+        #     raise forms.ValidationError("二次密码输入不一致")
+        return confirm_password
+
+    # 全局钩子函数
+    def clean(self):
+        password =  self.cleaned_data.get("password")
+        confirm_password = self.cleaned_data.get("confirm_password")
+        if password != confirm_password:
+            raise forms.ValidationError("二次密码输入不一致")
+

@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 
 from django.views.static import serve
 
+from django.utils.translation import gettext_lazy as _
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,7 +36,14 @@ urlpatterns = [
     path('', include('app3.urls')),
     path('app4/', include('app4.urls')),
     path('app5/', include('app5.urls')),
-]+ staticfiles_urlpatterns()+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + staticfiles_urlpatterns()+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 
 if not settings.DEBUG:
     # urlpatterns += [path('^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
@@ -43,3 +52,7 @@ if not settings.DEBUG:
     urlpatterns += [re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
 re_path('static/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),]
 
+# 添加i18n URL配置
+urlpatterns += [
+    path(_('^i18n/'), include('django.conf.urls.i18n')),
+]

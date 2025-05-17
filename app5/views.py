@@ -1,5 +1,5 @@
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -69,3 +69,32 @@ def imgfileform(request):
             userimg.save()
             print("上传成功")
             return render(request,"5/upload_form.html",{"form_obj":f,'user':userimg})
+        
+def userbaseinfo_modelform(request):
+    if request.method == "GET":
+        myform = UserBaseInfoModelForm()
+        return render(request, "5/userinfoform.html", {'form_obj': myform})
+    else:
+        f = UserBaseInfoModelForm(request.POST)
+        if f.is_valid():
+            print(f.clean())
+            print(f.cleaned_data["username"])
+            print(f.data)
+            new_userinfo=f.save() # 保存数据到数据库
+            print(new_userinfo.username)
+        else:
+            errors = f.errors
+            print(errors)
+            return render(request, "5/userinfoform.html", {'form_obj': f, 'errors': errors})
+        return render(request, "5/userinfoform.html", {'form_obj': f})
+
+from django.views.decorators.csrf import csrf_exempt
+def ajax_login(request):
+   return render(request, "5/ajax_login.html")
+def ajax_login_data(request):
+    username = request.POST.get("username")
+    password = request.POST.get("password")
+    if username == "admin" and password == "admin":
+        return JsonResponse({"code": 1, "msg": "登录成功"})
+    else:
+        return JsonResponse({"code": 0, "msg": "登录失败"})

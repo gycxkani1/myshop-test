@@ -10,11 +10,11 @@
       <p>{{form_obj.password.label}}：{{ form_obj.password }}
         <span style="color:red">{{ form_obj.errors.password.0 }}</span>
       </p>
-      <!--
+     
       <p>{{form_obj.confirm_password.label}}:{{ form_obj.confirm_password }}
-          {{ form_obj.errors.confirm_password.0 }}
+        <span style="color:red">{{ form_obj.errors.confirm_password.0 }}</span>
       </p>
-      -->
+      
       <p>{{form_obj.status.label}}：{{ form_obj.status }}
         <span style="color:red">{{ errors.status.0 }}</span>
       </p>
@@ -24,7 +24,7 @@
       <p>{{form_obj.mobile.label}}：{{ form_obj.mobile }}
         <span style="color:red">{{ errors.mobile.0 }}</span>
       </p>
-      <h3>错误信息汇总在一起显示：</h3>
+      <h3><span style="color:red">错误信息：</span></h3>
       <span style="color:red">{{  errors }}</span>
       <br />
       <input type="submit" value="提交">
