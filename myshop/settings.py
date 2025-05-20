@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'app3',  # Your third app
     'app4',  # Your fourth app
     'app5',  # Your fifth app
+    'app6',
 ]
 
 MIDDLEWARE = [
@@ -54,9 +55,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    
+    # 'app6.middle.mymiddle.AuthMiddleware1', # 自定义中间件
+    # 'app6.middle.mymiddle.AuthMiddleware2', # 自定义中间件
+    'app6.middle.permmiddleware.PermissionMiddleWare',
 ]
 
 ROOT_URLCONF = 'myshop.urls'
+
+AUTH_USER_MODEL = "app6.MyUser" # 扩展用户模型
+LOGIN_URL = '/app6/myuser_login/'
+
 
 TEMPLATES = [
     {

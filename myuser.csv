@@ -1,0 +1,4 @@
+id,password,last_login,is_superuser,username,first_name,last_name,email,is_staff,is_active,date_joined,photo,weChat,level
+1,pbkdf2_sha256$216000$JsgRRex3OhwY$0SGPHqr08BRCtzu0cH2KzFNYSjyghrV1FHz224Wh5Io=,"2025-05-19 13:38:26.881067",1,admin,,,admin@qq.com,1,1,"2025-05-18 15:01:54.061348",,yangcoder,1
+2,pbkdf2_sha256$216000$Aexb1mEg6r2n$VZRGoATzsFf3EpDlrIkDIEBuX3LKyPqzA/zjDXH29FE=,"2025-05-19 13:42:53.470005",1,kang,,,kang@qq.com,1,1,"2025-05-19 08:18:06.396082",,yangcoder,1
+3,pbkdf2_sha256$216000$GlNvH5M7ENKf$y8Gsv8S6aCs9arkvTpFAX2WRcNw6+eNCOqsVECPdgbw=,"2025-05-19 13:43:42.524487",1,andy,,,andy@qq.com,1,1,"2025-05-19 08:27:01.677947",,andy0231,1

@@ -1,0 +1,23 @@
+欢迎{{ request.user }}来到商城系统！
+<a href="{% url 'app6_myuser_logout' %}">用户退出</a>
+<br /><br />
+用户信息列表
+<table border="1">
+  <tr>
+    <th>账号</th>
+    <th>微信</th>
+    <th>邮箱</th>
+    <th>操作</th>
+  </tr>
+  {% for user in users %}
+  <tr>
+    <td>{{ user.username }}</td>
+    <td>{{ user.weChat }}</td>
+    <td>{{ user.email }}</td>
+    <td><a href="{% url 'app6_myuser_edit' %}">修改</a></td>
+    {% if perms.myuser.delete_myuser %}
+    <td><a href="">删除</a></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>
