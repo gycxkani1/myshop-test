@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'app4',  # Your fourth app
     'app5',  # Your fifth app
     'app6',
+    'app8',
+    'rest_framework',  # Django REST framework for API development
 ]
 
 MIDDLEWARE = [

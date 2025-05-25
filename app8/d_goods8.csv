@@ -1,0 +1,9 @@
+id,name,market_price,price,unit,click_num,amount,stock_num,fav_num,status,main_img,is_recommend,createDate,category_id,user_id
+1,aa,2.3,2,kg,12320,1002,50000,15236,0,NULL,1,00:00.0,1,NULL
+2,bb,1.5,1.3,kg,12365,1000,45000,13658,0,NULL,1,00:00.0,2,NULL
+3,cc,3.6,3.5,kg,12369,1500,50000,15698,0,NULL,1,00:00.0,3,NULL
+4,米枣,3.2,5.2,NULL,0,0,0,0,0,,0,38:19.8,1,NULL
+5,樱桃,3.2,5.2,NULL,0,0,0,0,0,,0,02:09.8,3,NULL
+6,苹果,3.2,5.2,NULL,0,0,0,0,0,goods/images/红枣副本1.jpg,0,25:54.0,3,NULL
+7,青苹果,3.2,5.2,NULL,0,0,0,0,0,goods/images/哈密大枣_YdGMcVm.jpg,0,38:32.5,3,NULL
+8,陕西苹果,3.2,5.2,NULL,0,0,0,0,0,,0,40:56.6,3,NULL

@@ -1,0 +1,8 @@
+"E:\python_project\venv\lib\site-packages\django\contrib\auth\admin.py", line 10, in <module>
+    from apps.users.models import MyUser as User
+ModuleNotFoundError: No module named 'apps'
+
+扩展用户模型字段后：
+from django.contrib.auth.models import Group#, User
+#from apps.users.models import MyUser as User
+from app6.models import MyUser as User
