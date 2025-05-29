@@ -45,7 +45,7 @@ class UserExtraInfo(models.Model):
     age = models.IntegerField(verbose_name='年龄',)
     department = models.CharField(verbose_name='部门',max_length=20)
     status = models.CharField(verbose_name='状态',max_length=1)
-    createdate = models.DateTimeField(verbose_name='创建日期',db_column='createDate', default=timezone.now())
+    createdate = models.DateTimeField(verbose_name='创建日期',db_column='createDate', default=timezone.now)
     memo = models.TextField(verbose_name='备注',blank=True, null=True)
     user=models.OneToOneField(UserBaseInfo,on_delete=models.CASCADE)
 

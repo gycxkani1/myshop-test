@@ -24,6 +24,11 @@ from django.views.static import serve
 
 from django.utils.translation import gettext_lazy as _
 
+from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.documentation import include_docs_urls
+from rest_framework_jwt.views import obtain_jwt_token
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,14 +43,19 @@ urlpatterns = [
     path('app5/', include('app5.urls')),
     path('app6/', include('app6.urls')),
     path('app8/', include('app8.urls')),
+
+    path('docs/', include_docs_urls(title='我的商城接口文档')),
+    path('api-token-auth/', obtain_auth_token),
+    path('api-jwt-token-auth/', obtain_jwt_token),
+
+
+
 ] # + staticfiles_urlpatterns()+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
-if not settings.DEBUG:
+else:
     # urlpatterns += [path('^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     # path('^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT})]
 
@@ -53,6 +63,6 @@ if not settings.DEBUG:
 re_path('static/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),]
 
 # 添加i18n URL配置
-urlpatterns += [
-    path(_('^i18n/'), include('django.conf.urls.i18n')),
-]
+# urlpatterns += [
+#     path(_('^i18n/'), include('django.conf.urls.i18n')),
+# ]

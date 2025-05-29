@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import datetime
 from pathlib import Path
 import os
 
@@ -26,7 +27,7 @@ SECRET_KEY = 'iwrah6iu^hqc!c=be@7f#!6t_wdjm&3)(#ogwws@5u)pl7cc%&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,28 +46,38 @@ INSTALLED_APPS = [
     'app5',  # Your fifth app
     'app6',
     'app8',
-    'rest_framework',  # Django REST framework for API development
+    'rest_framework',  # 用于API开发的Django REST框架
+    'django_filters',  # 用于在视图中过滤数据的Django筛选器
+    'rest_framework.authtoken', # Django REST框架认证令牌中间件
+    'corsheaders',  # CORS跨域请求的头部    
+
+
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # CORS跨域请求中间件
+    'django.middleware.security.SecurityMiddleware', # 安全中间件
+    'django.contrib.sessions.middleware.SessionMiddleware', # 会话中间件
+    'django.middleware.common.CommonMiddleware', # 通用中间件
+    'django.middleware.csrf.CsrfViewMiddleware', # 跨域请求伪造保护中间件
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # 用户认证中间件
+    'django.contrib.messages.middleware.MessageMiddleware', # 消息中间件
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', # 点击劫持
+    'django.middleware.locale.LocaleMiddleware', # 本地化中间件
     
     # 'app6.middle.mymiddle.AuthMiddleware1', # 自定义中间件
     # 'app6.middle.mymiddle.AuthMiddleware2', # 自定义中间件
-    'app6.middle.permmiddleware.PermissionMiddleWare',
+    # 'app6.middle.permmiddleware.PermissionMiddleWare', # 用中间件简化权限认证
 ]
 
 ROOT_URLCONF = 'myshop.urls'
 
 AUTH_USER_MODEL = "app6.MyUser" # 扩展用户模型
-LOGIN_URL = '/app6/myuser_login/'
+LOGIN_URL = '/app6/myuser_login/' # 登录页面路径
+
+CORS_ALLOW_CREDENTIALS = True  # 跨域请求允许携带cookie
+CORS_ORIGIN_ALLOW_ALL = True  # 允许所有域名跨域访问
+
 
 
 TEMPLATES = [
@@ -80,7 +91,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media',
+                'django.template.context_processors.media',  # 添加媒体文件路径到上下文中
+
             ],
         },
     },
@@ -178,8 +190,48 @@ STATIC_ROOT = os.path.join(BASE_DIR, '/static')
 
 MEDIA_URL = '/media/'
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = MEDIA_DIR
 
+
+
+REST_FRAMEWORK = {
+    # 全局分页配置
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 2,
+
+    # 过滤器默认配置
+    'DEFAULT_FILTER_BACKENDS': (
+           'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    # 全局认证类
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication', # 配置验证方式为JWT验证
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',  
+        # 'rest_framework.authentication.TokenAuthentication', # 使用Token令牌的HTTP身份认证
+    ),
+    # 全局权限配置
+     'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated', # 需要登录认证才能访问
+    ),
+
+     #不然会提示 'AutoSchema' object has no attribute 'get_link'
+    'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema',
+
+    # 自定义异常处理函数
+    'EXCEPTION_HANDLER': 'app8.customexception.custom_exception_handler'
+    
+
+
+}
+
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3),  # Token 过期时间为3天
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',  # Token的头为：JWT XXXXXXXXXXXXXXXXXXXXXX
+    'JWT_ALLOW_REFRESH': False, # 是否允许刷新Token
+    #自定义返回认证信息
+    'JWT_RESPONSE_PAYLOAD_HANDLER':'app8.jwt_utils.jwt_response_payload_handler'
+}
 
 
