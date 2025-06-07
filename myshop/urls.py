@@ -43,6 +43,7 @@ urlpatterns = [
     path('app5/', include('app5.urls')),
     path('app6/', include('app6.urls')),
     path('app8/', include('app8.urls')),
+    path('app9/', include('app9.urls')),
 
     path('docs/', include_docs_urls(title='我的商城接口文档')),
     path('api-token-auth/', obtain_auth_token),

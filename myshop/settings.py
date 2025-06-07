@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'app5',  # Your fifth app
     'app6',
     'app8',
+    'app9',
     'rest_framework',  # 用于API开发的Django REST框架
     'django_filters',  # 用于在视图中过滤数据的Django筛选器
     'rest_framework.authtoken', # Django REST框架认证令牌中间件
