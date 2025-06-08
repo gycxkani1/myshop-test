@@ -4,6 +4,7 @@ from django.http import HttpResponse,JsonResponse
 from app8.models import *
 import json
 
+
 class GoodsListView(View):
     def get(self,request):
         """
